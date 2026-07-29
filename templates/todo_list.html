@@ -1,8 +1,30 @@
-<h1>My Todos</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main>
+        <section class="page-header">
+            <h1>My Todos</h1>
+            <div>
+                <a class="button" href="#">Add Todo</a>
+            </div>
+        </section>
 
-<button>Add Todo</button>
-
-<ul>
-    <li>Learn Flask</li>
-    <li>Create Database</li>
-</ul>
+        <ul class="todo-list">
+            {% for todo in todos %}
+                <li class="todo-item {% if todo.completed %}completed{% endif %}">
+                    <a href="{{ url_for('todo_details', id=todo.id) }}">{{ todo.title }}</a>
+                    <span class="status">{{ 'Completed' if todo.completed else 'Open' }}</span>
+                </li>
+            {% else %}
+                <li class="empty-state">No todos available. Add your first task after logging in.</li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

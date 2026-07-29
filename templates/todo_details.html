@@ -1,12 +1,23 @@
-<h1>Todo Details</h1>
-
-<h2>Learn Flask</h2>
-
-<p>Study routes and database</p>
-
-<h3>Subtasks</h3>
-
-<ul>
-    <li>Create app.py</li>
-    <li>Create models</li>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main>
+        <section class="todo-card">
+            <h1>Todo Details</h1>
+            <h2>{{ todo.title }}</h2>
+            <p class="todo-description">{{ todo.description or 'No description provided.' }}</p>
+            <div class="todo-meta">
+                <span>Status: <strong>{{ 'Completed' if todo.completed else 'Open' }}</strong></span>
+                <span>Created: {{ todo.created_at.strftime('%Y-%m-%d %H:%M') if todo.created_at else 'Unknown' }}</span>
+            </div>
+            <a class="button" href="{{ url_for('todos') }}">Back to list</a>
+        </section>
+    </main>
+</body>
+</html>

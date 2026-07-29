@@ -17,7 +17,7 @@ def register_page():
     return render_template("register.html")
 
 @app.route("/todos")
-def todos():
+def todo_list():
     with engine.connect() as conn:
         result = conn.execute(select(todos).limit(20))
         todo_rows = result.mappings().all()
@@ -29,7 +29,7 @@ def todo_details(id):
         result = conn.execute(select(todos).where(todos.c.id == id))
         todo_row = result.mappings().first()
     if not todo_row:
-        return redirect(url_for("todos"))
+        return redirect(url_for("todo_list"))
     return render_template("todo_details.html", todo=todo_row)
 
 @app.route("/auth/login", methods=["POST"])
